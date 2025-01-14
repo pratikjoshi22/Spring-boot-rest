@@ -1,19 +1,16 @@
 package com.pratik.spring_boot_rest.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
-
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import java.util.List;
 
 
+@Entity
 public class JobPost {
 
-
+	@Id
 	private int postId;
 	private String postProfile; 
 	private String postDesc;
@@ -28,6 +25,10 @@ public class JobPost {
 
 	private Integer reqExperience;
 	private List<String> postTechStack;
+
+	public JobPost() {
+
+	}
 
 	public int getPostId() {
 		return postId;

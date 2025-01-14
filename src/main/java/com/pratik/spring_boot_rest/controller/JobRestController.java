@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class JobRestController {
 
 
@@ -21,15 +21,29 @@ public class JobRestController {
         return jobService.returnAllJobPosts();
     }
 
+        @GetMapping("load")
+        public String load(){
+            jobService.load();
+            return "sucess";
+        }
+
+
 
     @GetMapping("jobposts/{postId}")
     public JobPost getJob(@PathVariable("postId") int postId){
        return jobService.getJob(postId);
     }
 
+    @GetMapping("jobposts/keyword/{keyword}")
+    public List<JobPost> searchByKeyword(@PathVariable("keyword") String keyword){
+        return jobService.search(keyword);
+
+    }
+
+
     //@PostMapping("jobposts")
-    @PostMapping(path = "jobposts", consumes = {"application/xml"})//only consumses xml data restricts json
-//    Content-Type 'application/json' is not supported]
+    @PostMapping(path = "jobposts", consumes = {"application/json"})//only consumses xml data if its {"application/xml"} it restricts json
+//    Content-Type 'application/json' is not supported
     public void addjob(@RequestBody JobPost jobPost){
         jobService.addJobPost(jobPost);
     }
@@ -45,4 +59,7 @@ public class JobRestController {
         jobService.deleteJob(postId);
         return "Data has been deleted sucessfully";
     }
+
+
+
 }
